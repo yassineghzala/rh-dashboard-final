@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>Events</title>
+
+    <style>
+        html{
+            zoom:95%;
+        }
+        * {
+            font-family: "Poppins", sans-serif; 
+        }
+        body{
+            background-image: linear-gradient(30deg, #E8E8E8, #E8E8E8);
+        }
+        svg {
+            width: 100%;
+            background-image: linear-gradient(to top 30deg, #b31412, #1a5bbc);
+        }
+        img{
+            position:relative;
+            top:10px;
+            width:70px;
+            height:70px;
+            margin-left: 0px;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+        
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+            background: #1a162d no-repeat center center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+        }
+        .events__menu_title{
+            text-align: center;
+            position:relative;
+            left:-26px;
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 48;
+            align-self:flex-end;
+            margin-bottom:3%;
+            cursor: pointer;
+        }
+
+        #loadlogo {
+            animation: load 1s;
+        }
+
+        @keyframes load {
+            0% {
+                opacity: 0;
+                transform: Scale(1.2);
+            }
+
+            25% {
+                opacity: 0.4;
+                transform: Scale(1.2);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        iframe {
+            display: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            table-layout: fixed;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+        table caption {
+            font-size: 1.5em;
+            margin: .5em 0 .75em;
+        }
+
+        table tr {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: .35em;
+        }
+        table th,
+        table td {
+            padding: .625em;
+            text-align: center;
+        }
+
+        table th {
+            font-size: .85em;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        @media screen and (max-width: 600px) {
+            table {
+                border: 0;
+            }
+
+            table caption {
+                font-size: 1.3em;
+            }
+
+            table thead {
+                border: none;
+                clip: rect(0 0 0 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+
+            table tr {
+                border-bottom: 3px solid #ddd;
+                display: block;
+                margin-bottom: .625em;
+            }
+
+            table td {
+                border-bottom: 1px solid #ddd;
+                display: block;
+                font-size: .8em;
+                text-align: right;
+            }
+
+            table td::before {
+                /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            table td:last-child {
+                border-bottom: 0;
+            }
+        }
+
+        .button-48 {
+            appearance: none;
+            background-color: white;
+            width:200px;
+            border-width: 0;
+            box-sizing: border-box;
+            color: #1a5bbc;
+            cursor: pointer;
+            display: inline-block;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0;
+            line-height: 1em;
+            margin: 0;
+            opacity: 1;
+            outline: 0;
+            padding: 1.5em 2.2em;
+            position: relative;
+            text-align: center;
+            text-decoration: none;
+            text-rendering: geometricprecision;
+
+            transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1), background-color 100ms cubic-bezier(.694, 0, 0.335, 1), color 100ms cubic-bezier(.694, 0, 0.335, 1);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            vertical-align: baseline;
+            white-space: nowrap;
+        }
+
+        a {
+            text-decoration: none;
+
+        }
+
+
+        .circle {
+            width: 5em;
+            height: 5em;
+            transition: all 1s;
+            cursor: pointer;
+        }
+
+
+        .button-48:before {
+            animation: opacityFallbackOut .5s step-end forwards;
+            backface-visibility: hidden;
+            background-color: #5737c9;
+
+            clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+            content: "";
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            transform: translateZ(0);
+            transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
+            width: 100%;
+        }
+
+        .button-48:hover {
+            color: white;
+        }
+
+        .button-48:hover:before {
+            color: white;
+            animation: opacityFallbackIn 0s step-start forwards;
+            clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+
+        }
+
+        .button-48:after {
+            background-color: white;
+
+        }
+
+        .button-48 span {
+            z-index: 1;
+            position: relative;
+        }
+
+        .icons {
+            width: 50px;
+            height: 50px;
+        }
+      
+        .modal_table tr td{
+            text-align: left;
+        }
+        input{
+            width:100%;
+        }
+        .modal1 {
+            display:none;
+            position: fixed; 
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+            transition:all 0.75s;
+        }
+        .modal2 {
+            display:none;
+            position: fixed; 
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+            transition:all 0.75s;
+        }
+.modal_btn{
+    background-color:#1a5bbc;
+    border:1px solid #1a5bbc;
+    color:white;
+    border-radius:5px;
+    padding:5px;
+}
+.normal_btn{
+    cursor:pointer;
+    background-color:#1a5bbc;
+    border:1px solid #1a5bbc;
+    color:white;
+    border-radius:5px;
+    width:200px;
+    padding:15px;
+}
+/* Modal Content/Box */
+.modal-content1 {
+    transition:all 0.75s;
+    border-radius: 10px;
+    background-image:url("assets/imgs/bg4.png");
+    background-color:#E8E8E8;
+    position:relative;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    height:40%;
+    width: 25%; /* Could be more or less, depending on screen size */
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.modal-content2 {
+    transition:all 0.75s;
+    border-radius: 10px;
+    background-color:#E8E8E8;
+    position:relative;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    height:20%;
+    width: 25%; /* Could be more or less, depending on screen size */
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+button{
+    width:50%;
+    align-self:center;
+    margin:5%;
+}
+form{
+    display:flex;
+    flex-direction:column;
+}
+form table tr td label{
+    display:flex;
+    justify-content: flex-start;
+}
+form table tr td {
+    padding:5%;
+}
+.delete_card{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    height:100%;
+}
+.close2,.close4{
+    align-self:flex-end;
+}
+.del_message{
+    position:relative;
+    left:2%;
+}
+.buttons{
+    display:flex;
+    margin-bottom:10%;
+}
+
+    @media(max-width:600px) {
+        .modal-content2 {
+            transition:all 0.75s;
+            border-radius: 5px;
+            background-color:#E8E8E8;
+            position:relative;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            height:25%;
+            width: 25%; /* Could be more or less, depending on screen size */
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+    }
+    @media(max-width:320px) {
+        .modal-content2 {
+            transition:all 0.75s;
+            border-radius: 5px;
+            background-color:#E8E8E8;
+            position:relative;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            height:30%;
+            width: 25%; /* Could be more or less, depending on screen size */
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+    }
+        @media screen and (max-width:768px) {
+            .button-48 {
+            appearance: none;
+            background-color: white;
+            width:150px;
+            border-width: 0;
+            box-sizing: border-box;
+            color: #1a5bbc;
+            cursor: pointer;
+            display: inline-block;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0;
+            line-height: 1em;
+            margin: 0;
+            opacity: 1;
+            outline: 0;
+            padding: 1.5em 2.2em;
+            position: relative;
+            text-align: center;
+            text-decoration: none;
+            text-rendering: geometricprecision;
+
+            transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1), background-color 100ms cubic-bezier(.694, 0, 0.335, 1), color 100ms cubic-bezier(.694, 0, 0.335, 1);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            vertical-align: baseline;
+            white-space: nowrap;
+        }
+            
+        }
+        @media screen and (max-width:700px) {
+            .title1 {
+                font-size: 1.7em;
+            }
+        }
+        @media screen and (max-width:320px) {
+            
+        }
+        @media screen and (max-width:600px) {
+            .icons {
+                width: 30px;
+                height: 30px;
+            }
+
+            .button-48 {
+                appearance: none;
+                background-color: white;
+                ;
+                border-width: 0;
+                box-sizing: border-box;
+                color: #1a5bbc;
+                cursor: pointer;
+                display: inline-block;
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                font-size: 10px;
+                font-weight: 500;
+                letter-spacing: 0;
+                line-height: 1em;
+                margin: 0;
+                opacity: 1;
+                outline: 0;
+                padding: 1em;
+                position: relative;
+                text-align: center;
+                text-decoration: none;
+                text-rendering: geometricprecision;
+
+                transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1), background-color 100ms cubic-bezier(.694, 0, 0.335, 1), color 100ms cubic-bezier(.694, 0, 0.335, 1);
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                vertical-align: baseline;
+                white-space: nowrap;
+            }
+
+            .title1 {
+                font-size: 1.25em;
+            }
+
+            .circle {
+                width: 3em;
+                height: 3em;
+                transform: translateY(10px);
+            }
+
+
+
+            a {
+
+                font-size: 10px;
+
+            }
+        }
+
+        #logotask {
+            transition: all 1s;
+        }
+
+        #logotask:hover {
+            transition: all 1s;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .circle:hover {
+            opacity: 0.5;
+            transition: all 1s;
+        }
+
+        #buttonHeader {
+
+            font-size: 13px;
+
+        }
+
+        #buttonHeader span:hover,
+        ion-icon :hover {
+            color: white
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        header h1 {
+            justify-content: center;
+        }
+
+        #buttonHeader:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body onload="myFunction()">
+    <div id="loading"> <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/L01JmA1M04k"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/L01JmA1M04k" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/L01JmA1M04k" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>-->
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/L01JmA1M04k" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe><iframe width="560" height="315" src="https://www.youtube.com/embed/L01JmA1M04k"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe><iframe width="560" height="315" src="https://www.youtube.com/embed/L01JmA1M04k"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        <div style="border-radius: 50%;background-color: white;"></div>
+        <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+
+        <h1 style="text-align: center;position: relative;top:-45vh;color: white;" id="loadlogo">Events Menu</h1>
+        <br><br><br>
+        <div style="position: absolute;top:25vh;">
+
+            <br><br>
+            <center><img src="assets/imgs/icon.png" alt="" id="loadlogo" style="width:
+            50%;height:40%"></center><br>
+            <center>
+                <h2 style="text-align: center;color: white;" id="loadlogo">Loading Tasks Please Wait</h2><br>
+                <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+                <lord-icon src="https://cdn.lordicon.com/dpinvufc.json" trigger="loop"
+                    colors="primary:#d4f49c,secondary:#a866ee" style="width:100px;height:100px">
+                </lord-icon>
+            </center>
+
+        </div>
+
+    </div>
+    <header> <img src="assets/imgs/icon.png" alt="" width="50px" height="50px" id="logotask">
+
+        
+        <h1 class="title1 events__menu_title">Welcome To Events menu</h1>
+        <p style="opacity
+        :0;"></p>
+
+    </header>
+    <div>
+
+        <center>
+
+            <table>
+                    <center>
+                        <div style="display: flex;flex-wrap: wrap;justify-content: center;">
+
+                            <button id="add_important_event" class='normal_btn'><span class="text">Add Important event</span></button>
+
+                        </div>
+                    </center>
+                </caption><br>
+
+                <thead>
+                    <tr>
+                        <th scope="col" style="color:#1a5bbc;">Event</th>
+                        <th scope="col" style="color:#1a5bbc;">image</th>
+                        <th scope="col" style="color:#1a5bbc;">Date</th>
+                        <th scope="col" style="color:#1a5bbc;">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Task">test_event</td>
+                        <td data-label="img"><img src="assets/imgs/anis.jpg" alt="" width="50px" height="50px" style="position:relative;top:10%;"></td>
+                        <td data-label="Deadline">30/01/2023</td>
+                        <td data-label="Details" class="c1">
+                            <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+                            <lord-icon src="https://cdn.lordicon.com/wloilxuq.json" trigger="hover"
+                                style="cursor: pointer;" title="Modify" class="icons" id="modify_Btn" >
+                            </lord-icon><button class='button-48' style="position: relative;top: -2vh;"><span
+                                    class="text">Click Here</span></button>
+                            <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+                            <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="hover"
+                                style="cursor: pointer;" title="Delete" class="icons" id="delete_Btn">
+                            </lord-icon>
+                        </td>
+                    </tr>
+                </tbody>
+            </table><br><br>
+            <table>
+                <center>
+                    <div style="display: flex;flex-wrap: wrap;justify-content: center;">
+
+                        <button id="add_normal_event" class='normal_btn'><span class="text">Add normal event</span></button>
+
+                    </div>
+                </center>
+            </caption><br>
+
+            <thead>
+                <tr>
+                    <th scope="col" style="color:#1a5bbc;">Event</th>
+                    <th scope="col" style="color:#1a5bbc;">image</th>
+                    <th scope="col" style="color:#1a5bbc;">Date</th>
+                    <th scope="col" style="color:#1a5bbc;">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Event">test_event</td>
+                    <td data-label="img"><img src="assets/imgs/anis.jpg" alt="" width="50px" height="50px" style="position:relative;top:10%;"></td>
+                    <td data-label="Dte">30/01/2023</td>
+                    <td data-label="Details" class="c1">
+                        <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+                        <lord-icon src="https://cdn.lordicon.com/wloilxuq.json" trigger="hover"
+                            style="cursor: pointer;" title="Modify" class="icons" id="modify_Btn2" >
+                        </lord-icon><button class='button-48' style="position: relative;top: -2vh;"><span
+                                class="text">Click Here</span></button>
+                        <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+                        <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="hover"
+                            style="cursor: pointer;" title="Delete" class="icons" id="delete_Btn2">
+                        </lord-icon>
+                    </td>
+                </tr>
+            </tbody>
+        </table><br><br>
+            <div>
+                <a href="index.html"><button class='normal_btn' id="buttonHeader"><span class="text"><ion-icon
+                                name="arrow-back-outline" style="position: relative;top: 2px;"></ion-icon>Back To
+                            Dashbord</span></button></a>
+            </div>
+        </center>
+    </div>
+    <h2></h2>
+    </div>
+    <!-- Modify_Modal-->
+    <div id="myModal_modify" class="modal1" >
+        <div class="modal-content1">
+            <form action="#">
+                <span class="material-symbols-outlined close1">&times;</span>
+                <table>
+                        <tr>
+                            <td>
+                                <label for="">Event Name</label>
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="">Date</label>
+                            </td>
+                            <td>
+                                <input type="date">
+                            </td>
+                        </tr>
+                </table>
+                <button id="save_modifications" class="modal_btn" >Save</button>
+            </form>
+        </div>
+      </div>
+      <div id="myModal_delete" class="modal2" >
+        <div class="modal-content2">
+            <div class="delete_card">
+                <span class="material-symbols-outlined close2" >&times;</span>
+                <p class="del_message" >Are you sure you want to delete this event ?</p>
+                <div class="buttons">
+                    <button id="" class="modal_btn">Yes</button>
+                    <button id="" class="modal_btn">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="myModal_modify2" class="modal1" >
+        <div class="modal-content1">
+            <form action="#">
+                <span class="material-symbols-outlined close3">&times;</span>
+                <table>
+                        <tr>
+                            <td>
+                                <label for="">Event Name</label>
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="">Date</label>
+                            </td>
+                            <td>
+                                <input type="date">
+                            </td>
+                        </tr>
+                </table>
+                <button id="save_modifications" class="modal_btn" >Save</button>
+            </form>
+        </div>
+      </div>
+      <div id="myModal_delete2" class="modal2" >
+        <div class="modal-content2">
+            <div class="delete_card">
+                <span class="material-symbols-outlined close4" >&times;</span>
+                <p class="del_message" >Are you sure you want to delete this event ?</p>
+                <div class="buttons">
+                    <button id="" class="modal_btn">Yes</button>
+                    <button id="" class="modal_btn">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="myModal_modify5" class="modal1" >
+        <div class="modal-content1">
+            <form action="#">
+                <span class="material-symbols-outlined close5">&times;</span>
+                <table>
+                        <tr>
+                            <td>
+                                <label for="">Event Name</label>
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="">Date</label>
+                            </td>
+                            <td>
+                                <input type="date">
+                            </td>
+                        </tr>
+                </table>
+                <button id="save_modifications" class="modal_btn" >Add</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="myModal_modify6" class="modal1" >
+        <div class="modal-content1">
+            <form action="#">
+                <span class="material-symbols-outlined close6">&times;</span>
+                <table>
+                        <tr>
+                            <td>
+                                <label for="">Event Name</label>
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="">Date</label>
+                            </td>
+                            <td>
+                                <input type="date">
+                            </td>
+                        </tr>
+                </table>
+                <button id="save_modifications" class="modal_btn" >Add</button>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        // $(document).ready(function(){
+        // 	$('div#loading').removeAttr('id');
+        // });
+        var preloader = document.getElementById("loading");
+        // window.addEventListener('load', function(){
+        // 	preloader.style.display = 'none';
+        // 	})
+
+        function myFunction() {
+            preloader.style.display = 'none';
+        };
+        
+        var modal1 = document.getElementById("myModal_modify");
+
+    
+        var btn1 = document.getElementById("modify_Btn");
+
+
+        var span1 = document.getElementsByClassName("close1")[0];
+        btn1.onclick = function() {
+            modal1.style.display = "block";
+        }
+        span1.onclick = function() {
+            modal1.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal1) {
+                 modal1.style.display = "none";
+            }
+        }
+
+        var modal2 = document.getElementById("myModal_delete");
+
+    
+        var btn2 = document.getElementById("delete_Btn");
+
+
+        var span2 = document.getElementsByClassName("close2")[0];
+        btn2.onclick = function() {
+            modal2.style.display = "block";
+        }
+        span2.onclick = function() {
+            modal2.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal2) {
+                 modal2.style.display = "none";
+            }
+        }
+
+
+
+
+        var modal3 = document.getElementById("myModal_modify2");
+
+    
+        var btn3 = document.getElementById("modify_Btn2");
+
+
+        var span3 = document.getElementsByClassName("close3")[0];
+        btn3.onclick = function() {
+            modal3.style.display = "block";
+        }
+        span3.onclick = function() {
+            modal3.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal3) {
+                 modal3.style.display = "none";
+            }
+        }
+
+        var modal4 = document.getElementById("myModal_delete2");
+
+    
+        var btn4 = document.getElementById("delete_Btn2");
+
+
+        var span4 = document.getElementsByClassName("close4")[0];
+        btn4.onclick = function() {
+            modal4.style.display = "block";
+        }
+        span4.onclick = function() {
+            modal4.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal4) {
+                 modal4.style.display = "none";
+            }
+        }
+
+
+
+        var modal5 = document.getElementById("myModal_modify5");
+
+    
+        var btn5 = document.getElementById("add_important_event");
+
+
+        var span5 = document.getElementsByClassName("close5")[0];
+        btn5.onclick = function() {
+            modal5.style.display = "block";
+        }
+        span5.onclick = function() {
+            modal5.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal5) {
+                 modal5.style.display = "none";
+            }
+        }
+
+
+        var modal6 = document.getElementById("myModal_modify5");
+
+    
+        var btn6 = document.getElementById("add_normal_event");
+
+
+        var span6 = document.getElementsByClassName("close5")[0];
+        btn6.onclick = function() {
+            modal6.style.display = "block";
+        }
+        span6.onclick = function() {
+            modal6.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal6) {
+                 modal6.style.display = "none";
+            }
+        }
+        
+        
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

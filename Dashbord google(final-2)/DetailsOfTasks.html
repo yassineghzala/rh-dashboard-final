@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+            background: #1a162d no-repeat center center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+        }
+
+        #loadlogo {
+            animation: load 1s;
+        }
+
+        @keyframes load {
+            0% {
+                opacity: 0;
+                transform: Scale(1.2);
+            }
+
+            25% {
+                opacity: 0.4;
+                transform: Scale(1.2);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        iframe {
+            display: none;
+        }
+
+        * {
+            font-family: "Poppins", sans-serif;
+        }
+
+        .containerAll {
+            display: grid;
+            place-items: center;
+        }
+
+        .conatinerDetails {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+
+        table {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        table caption {
+            font-size: 1.5em;
+            margin: .5em 0 .75em;
+        }
+
+        table tr {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: .35em;
+        }
+
+        table th,
+        table td {
+            padding: .625em;
+            text-align: center;
+        }
+
+        table th {
+            font-size: .85em;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        @media screen and (max-width: 600px) {
+            table {
+                border: 0;
+            }
+
+            table caption {
+                font-size: 1.3em;
+            }
+
+            table thead {
+                border: none;
+                clip: rect(0 0 0 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+
+            table tr {
+                border-bottom: 3px solid #ddd;
+                display: block;
+                margin-bottom: .625em;
+            }
+
+            table td {
+                border-bottom: 1px solid #ddd;
+                display: block;
+                font-size: .8em;
+                text-align: right;
+            }
+
+            table td::before {
+                /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            table td:last-child {
+                border-bottom: 0;
+            }
+        }
+
+        .details {
+            display: none;
+        }
+
+        .selected {
+            animation: test1 1s;
+        }
+
+        @keyframes test1 {
+            0% {
+                opacity: 0;
+                transform: translateY(-70px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+
+        }
+
+        .button-48:before {
+            animation: opacityFallbackOut .5s step-end forwards;
+            backface-visibility: hidden;
+            background-color: #5737c9;
+
+            clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+            content: "";
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            transform: translateZ(0);
+            transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
+            width: 100%;
+        }
+
+        .button-48:hover {
+            color: white;
+        }
+
+        .button-48:hover:before {
+            color: white;
+            animation: opacityFallbackIn 0s step-start forwards;
+            clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+
+        }
+
+        .button-48:after {
+            background-color: white;
+
+        }
+
+        .button-48 span {
+            z-index: 1;
+            position: relative;
+        }
+        #TestS{
+            border-radius:2px;
+        }
+        .download-btn {
+            outline: none;
+            border: none;
+            color: #fff;
+
+            cursor: pointer;
+            padding: 16px 25px;
+            border-radius: 6px;
+
+            white-space: nowrap;
+            background: #4A98F7;
+            transition: all 0.2s ease;
+        }
+
+        .download-btn:hover {
+            background: #2382f6;
+        }
+
+        .download-btn.timer {
+            color: #000;
+            background: none;
+            transition: none;
+            font-size: 1rem;
+            pointer-events: none;
+        }
+
+        .download-btn.timer b {
+            color: #4A98F7;
+            padding: 0 8px;
+        }
+
+        .download-btn .icon {
+            font-size: 2rem;
+        }
+
+        .download-btn .text {
+            font-size: 1rem;
+            padding-left: 10px;
+        }
+
+        body {
+            background-color: #E8E8E8;
+        }
+
+        .select {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+
+        }
+
+        .select select {
+            font-family: 'Arial';
+            display: inline-block;
+            width: 25em;
+            cursor: pointer;
+            padding: 10px 20px;
+            outline: 0;
+            border: 0px dotted #000000;
+            border-radius: 22px;
+            background: #f4ebeb;
+            color: #7b7b7b;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        .select select::-ms-expand {
+            display: none;
+        }
+
+        .select select:hover,
+        .select select:focus {
+            color: #000000;
+            background: #cccccc;
+        }
+
+        .select select:disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .select_arrow {
+            position: absolute;
+            top: 16px;
+            right: 15px;
+            pointer-events: none;
+            border-style: solid;
+            border-width: 8px 5px 0px 5px;
+            border-color: #7b7b7b transparent transparent transparent;
+        }
+
+        .select select:hover~.select_arrow,
+        .select select:focus~.select_arrow {
+            border-top-color: #000000;
+        }
+
+        .select select:disabled~.select_arrow {
+            border-top-color: #cccccc;
+        }
+
+        svg {
+            position: sticky;
+            bottom: 0px;
+        }
+
+        #containerr {
+            color: #999;
+            text-transform: uppercase;
+            font-size: 1.25em;
+            font-weight: bold;
+
+            width: 100%;
+            bottom: 45%;
+            display: block;
+            position: relative;
+        }
+
+        #flip {
+            height: 50px;
+            overflow: hidden;
+            padding: 4px 4px;
+        }
+
+        #flip>div>div {
+            color: #fff;
+            padding: 4px 4px;
+            height: 45px;
+            margin-bottom: 45px;
+            display: inline-block;
+        }
+
+        #flip div:first-child {
+            animation: show 5s linear infinite;
+        }
+
+
+
+        #flip div:first-child div {
+            color: #4ec7f3;
+        }
+
+        #flip div:last-child div {
+            color: #DC143C;
+        }
+
+        @keyframes show {
+            0% {
+                margin-top: -270px;
+            }
+
+            5% {
+                margin-top: -180px;
+            }
+
+            33% {
+                margin-top: -180px;
+            }
+
+            38% {
+                margin-top: -90px;
+            }
+
+            66% {
+                margin-top: -90px;
+            }
+
+            71% {
+                margin-top: 0px;
+            }
+
+            99.99% {
+                margin-top: 0px;
+            }
+
+            100% {
+                margin-top: -270px;
+            }
+        }
+
+        .button-48:before {
+            animation: opacityFallbackOut .5s step-end forwards;
+            backface-visibility: hidden;
+            background-color: #5737c9;
+
+            clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+            content: "";
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            transform: translateZ(0);
+            transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
+            width: 100%;
+        }
+
+        .button-48:hover {
+            color: white;
+        }
+
+        .button-48:hover:before {
+            color: white;
+            animation: opacityFallbackIn 0s step-start forwards;
+            clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+
+        }
+
+        .button-48:after {
+            background-color: white;
+
+        }
+
+        .button-48 span {
+            z-index: 1;
+            position: relative;
+        }
+
+        .button-48 {
+            appearance: none;
+            background-color: white;
+            ;
+            border-width: 0;
+            box-sizing: border-box;
+            color: #1a5bbc;
+            cursor: pointer;
+            display: inline-block;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0;
+            line-height: 1em;
+            margin: 0;
+            opacity: 1;
+            outline: 0;
+            padding: 1.5em 2.2em;
+            position: relative;
+            text-align: center;
+            text-decoration: none;
+            text-rendering: geometricprecision;
+
+            transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1), background-color 100ms cubic-bezier(.694, 0, 0.335, 1), color 100ms cubic-bezier(.694, 0, 0.335, 1);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            vertical-align: baseline;
+            white-space: nowrap;
+            border-radius: 10px;
+        }
+
+        a {
+            text-decoration: none;
+
+        }
+
+        .details {
+            margin-right: 7vh;
+            margin-left: 7vh;
+            border-radius: 20px;
+            background-color: white;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        .label {
+            position: relative;
+            left: -8vh;
+        }
+        .buttonD {
+        background: #206ae1;
+
+        transition: ease-out 0.5s;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+        width: 200px;
+        height: 50px;
+        border: 1px solid #206ae1;
+        position: relative;
+
+        border-radius: 5px;
+        }
+        .text-animation {
+            font-size: 1.25em;
+            font-weight: bold;
+            color: #4285F4;
+            margin: 0;
+
+            animation: text-animation 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes text-animation {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-20px);
+            }
+        }
+
+        #DEF {
+            background: transparent;
+        }
+    </style>
+</head>
+
+
+<body onload="myFunction()">
+    <div id="loading"><iframe width="560" height="315" src="https://www.youtube.com/embed/L01JmA1M04k"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/L01JmA1M04k" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe><iframe width="560" height="315" src="https://www.youtube.com/embed/L01JmA1M04k"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe><iframe width="560" height="315" src="https://www.youtube.com/embed/L01JmA1M04k"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        <div style="border-radius: 50%;background-color: white;"></div>
+        <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+
+        <h1 style="text-align: center;position: relative;top:-45vh;color: white;" id="loadlogo">Tasks Details</h1>
+        <br><br><br>
+        <div style="position: absolute;top:25vh;">
+
+            <br><br>
+            <center><img src="assets/imgs/icon.png" alt="" id="loadlogo" style="width:
+            50%;height:40%"></center><br>
+            <center>
+                <h2 style="text-align: center;color: white;" id="loadlogo">Loading Tasks Details Please Wait</h2><br>
+                <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+                <lord-icon src="https://cdn.lordicon.com/dpinvufc.json" trigger="loop"
+                    colors="primary:#d4f49c,secondary:#a866ee" style="width:100px;height:100px">
+                </lord-icon>
+            </center>
+        </div>
+    </div>
+    <header> <img src="assets/imgs/icon.png" alt="" height="30px" width="30px" style="margin:2vh"></header>
+    <div class="containerAll">
+
+        <div class="conatinerDetails">
+            <center>
+                <h1>Task Details</h1>
+                <form action="" name="f">
+
+                    <label for="">Select Task</label><br>
+                    <div class="select" style=" position: relative;top: 5vh;">
+                        <div class=" select"> <select name="s" id="TestS">
+                                <option value="Default" selected>Select the task</option>
+                                <optgroup label="Department Media"></optgroup>
+                                <span onclick="test()">
+                                    <option value="m2" name="O">Magazine 2</option>
+                                </span>
+                                <option value="m1"> Magazine 1</option>
+                                <optgroup label="Department Dev"></optgroup>
+                                <option value="dg">Game Dev</option>
+                                <option value="dw">Google Web</option>
+                            </select>
+                            <div class="select_arrow">
+                            </div>
+                        </div>
+                </form>
+            </center><br><br>
+            <div class="test">
+                <div class="Default details" id="DEF"><img src="assets/imgs/HR.png" alt=""></div>
+                <div class="m2 details" style="background-color: white;border-radius: 20px;">
+                    <center><br><br>
+                        <h1 class="text-animation">Department Media</h1>
+                    </center>
+                    <div style=" background-color: white;padding: 10vh;border-radius: 20px;">
+                        <center> <label for="">Task Name :</label> <span id="test">Magazine 2</span><br>
+                        </center>
+                        <div style="background-color: white;padding-top:3vh;padding-left: 3vh ;"><label for=""
+                                class="label">Description:</label><br></div><br>
+                        <div>Lorem ipsum dolor sit
+                            amet consectetur adipisicing elit.
+                            Hic
+                            assumenda reiciendis, nobis perspiciatis explicabo repudiandae voluptatibus, recusandae vero
+                            quos
+                            deleniti sint eligendi eum omnis quasi quam distinctio eveniet quae et.
+                            Earum rem ut accusantium, cum non odit, porro laboriosam asperiores ad ipsam dicta facere
+                            sit
+                            nostrum reprehenderit? Maxime amet excepturi consectetur eos ducimus placeat eum, suscipit
+                            possimus
+                            odio vel sed.
+                            Dolorum, nesciunt. Commodi quae perspiciatis nihil suscipit ipsa culpa ut possimus eaque aut
+                            veniam
+                            corporis ducimus eligendi quibusdam provident reprehenderit quisquam architecto, sint optio
+                            dignissimos ratione voluptatem perferendis nam? Enim.
+                            Provident nobis quod nulla culpa debitis iste illum necessitatibus placeat ipsum, omnis
+                            deserunt
+                            expedita asperiores ullam nostrum velit voluptates suscipit quia fugit inventore qui
+                            excepturi
+                            veniam nesciunt distinctio? Sint, fuga.
+                            Recusandae error sequi perspiciatis blanditiis optio. Animi reprehenderit, eos culpa
+                            suscipit
+                            enim
+                            nemo laudantium ad ducimus ex quod quis, odit fugiat quidem commodi pariatur sint. Autem,
+                            consequuntur quia. Repellendus, ab!
+                        </div>
+
+                    </div>
+
+                    <table>
+                        <caption>Members Status About Task <br>
+                            <br>
+
+                        </caption><br>
+
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Status</th>
+
+                                <th scope="col">Download the work</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="Name">Taleb Mouelhi</td>
+                                <td data-label="Status"><ion-icon name="checkmark-done-outline"></ion-icon>
+                                    Work done !
+                                </td>
+
+                                <td data-label="Details" class="c1">
+                                    <button class="download-btn" data-timer="5">
+
+                                        <span class="text">Download Files</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="Name">Louay Abdelkader</td>
+                                <td data-label="Status"><ion-icon name="close-outline"></ion-icon>
+                                    work undone yet
+                                    !
+                                </td>
+
+                                <td data-label="Details" class="c1">
+                                    <button class="download-btn" data-timer="5" disabled>
+
+                                        <span class="text">Download Files</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="m1 details" style="background-color: white;border-radius: 20px;">
+                    <center><br><br>
+                        <h1 class="text-animation">Department Media</h1>
+                    </center>
+                    <div style=" background-color: white;padding: 10vh;border-radius: 20px;">
+                        <center> <label for="">Task Name :</label> <span id="test">Magazine 1</span><br>
+                        </center>
+                        <div style="background-color: white;padding-top:3vh;padding-left: 3vh ;"><label for=""
+                                class="label">Description:</label><br></div><br>
+                        <div>Lorem ipsum dolor sit
+                            amet consectetur adipisicing elit.
+                            Hic
+                            assumenda reiciendis, nobis perspiciatis explicabo repudiandae voluptatibus, recusandae vero
+                            quos
+                            deleniti sint eligendi eum omnis quasi quam distinctio eveniet quae et.
+                            Earum rem ut accusantium, cum non odit, porro laboriosam asperiores ad ipsam dicta facere
+                            sit
+                            nostrum reprehenderit? Maxime amet excepturi consectetur eos ducimus placeat eum, suscipit
+                            possimus
+                            odio vel sed.
+                            Dolorum, nesciunt. Commodi quae perspiciatis nihil suscipit ipsa culpa ut possimus eaque aut
+                            veniam
+                            corporis ducimus eligendi quibusdam provident reprehenderit quisquam architecto, sint optio
+                            dignissimos ratione voluptatem perferendis nam? Enim.
+                            Provident nobis quod nulla culpa debitis iste illum necessitatibus placeat ipsum, omnis
+                            deserunt
+                            expedita asperiores ullam nostrum velit voluptates suscipit quia fugit inventore qui
+                            excepturi
+                            veniam nesciunt distinctio? Sint, fuga.
+                            Recusandae error sequi perspiciatis blanditiis optio. Animi reprehenderit, eos culpa
+                            suscipit
+                            enim
+                            nemo laudantium ad ducimus ex quod quis, odit fugiat quidem commodi pariatur sint. Autem,
+                            consequuntur quia. Repellendus, ab!
+                        </div>
+
+                    </div>
+
+                    <table>
+                        <caption>Members Status About Task <br>
+                            <br>
+
+                        </caption><br>
+
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Status</th>
+
+                                <th scope="col">Download the work</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="Name">Yassin Riahi</td>
+                                <td data-label="Status"><ion-icon name="checkmark-done-outline"></ion-icon>
+                                    Work done !
+                                </td>
+
+                                <td data-label="Details" class="c1">
+                                    <button class="download-btn" data-timer="5">
+
+                                        <span class="text">Download Files</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="Name">Anas Ayari</td>
+                                <td data-label="Status"><ion-icon name="close-outline"></ion-icon>
+                                    work not done yet
+                                    !
+                                </td>
+
+                                <td data-label="Details" class="c1">
+                                    <button class="download-btn" data-timer="5" disabled>
+
+                                        <span class="text">Download Files</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="dg details" style="background-color: white;border-radius: 20px;">
+                    <center><br><br>
+                        <h1 class="text-animation">Department Dev</h1>
+                    </center>
+                    <div style=" background-color: white;padding: 10vh;border-radius: 20px;">
+                        <center> <label for="">Task Name :</label> <span id="test">Game Dev</span><br>
+                        </center>
+                        <div style="background-color: white;padding-top:3vh;padding-left: 3vh ;"><label for=""
+                                class="label">Description:</label><br></div><br>
+                        <div>Lorem ipsum dolor sit
+                            amet consectetur adipisicing elit.
+                            Hic
+                            assumenda reiciendis, nobis perspiciatis explicabo repudiandae voluptatibus, recusandae vero
+                            quos
+                            deleniti sint eligendi eum omnis quasi quam distinctio eveniet quae et.
+                            Earum rem ut accusantium, cum non odit, porro laboriosam asperiores ad ipsam dicta facere
+                            sit
+                            nostrum reprehenderit? Maxime amet excepturi consectetur eos ducimus placeat eum, suscipit
+                            possimus
+                            odio vel sed.
+                            Dolorum, nesciunt. Commodi quae perspiciatis nihil suscipit ipsa culpa ut possimus eaque aut
+                            veniam
+                            corporis ducimus eligendi quibusdam provident reprehenderit quisquam architecto, sint optio
+                            dignissimos ratione voluptatem perferendis nam? Enim.
+                            Provident nobis quod nulla culpa debitis iste illum necessitatibus placeat ipsum, omnis
+                            deserunt
+                            expedita asperiores ullam nostrum velit voluptates suscipit quia fugit inventore qui
+                            excepturi
+                            veniam nesciunt distinctio? Sint, fuga.
+                            Recusandae error sequi perspiciatis blanditiis optio. Animi reprehenderit, eos culpa
+                            suscipit
+                            enim
+                            nemo laudantium ad ducimus ex quod quis, odit fugiat quidem commodi pariatur sint. Autem,
+                            consequuntur quia. Repellendus, ab!
+                        </div>
+
+                    </div>
+
+                    <table>
+                        <caption>Members Status About Task <br>
+                            <br>
+
+                        </caption><br>
+
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Status</th>
+
+                                <th scope="col">Download the work</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="Name">Taleb Mouelhi</td>
+                                <td data-label="Status"><ion-icon name="checkmark-done-outline"></ion-icon>
+                                    Work done !
+                                </td>
+
+                                <td data-label="Details" class="c1">
+                                    <button class="download-btn" data-timer="5">
+
+                                        <span class="text">Download Files</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="Name">Louay Abdelkader</td>
+                                <td data-label="Status"><ion-icon name="close-outline"></ion-icon>
+                                    work undone yet
+                                    !
+                                </td>
+
+                                <td data-label="Details" class="c1">
+                                    <button class="download-btn" data-timer="5" disabled>
+
+                                        <span class="text">Download Files</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="testHR"><img src="assets/imgs/HR.png" alt=""></div>
+        <center><a href="tasks.html"><button class='buttonD' style="position: relative;top: -2vh;"><span
+                        class="text">Back
+                        To Tasks Menu</span></button></a></center>
+    </div>
+
+
+    <script type="text/javascript"> // $(document).ready(function(){
+        // $('div#loading').removeAttr('id');
+        // });
+        var preloader = document.getElementById("loading");
+        // window.addEventListener('load', function(){
+        // preloader.style.display = 'none';
+        // })  
+        function myFunction() {
+            preloader.style.display = 'none';
+        };
+
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#TestS").change(function () {
+                var name = $("#TestS").val();
+                $(".details").hide(); $(".testHR").hide();
+                $("." + name).show();
+                $(".details").removeClass("selected");
+                $("." + name).addClass("selected");
+                $("#svg").addClass("selected");
+            })
+        })
+    </script>
+    <script>
+
+        const downloadButtons = document.getElementsByClassName("download-btn");
+
+        for (let i = 0; i < downloadButtons.length; i++) {
+            const button = downloadButtons[i];
+
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                window.open("https://drive.google.com/file/d/1cti0MfxVWU5Y4Gxzu135qFUnLbe_JCN_/view?fbclid=IwAR3n2EZON4CmNoB_ZQpD7STTnQB9GGPONGLzolknSC02o39wi7UqWlc7Hh4" + (i + 1) + "_blank");
+            });
+        }
+
+
+        downloadBtn.addEventListener("click", initTimer);
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

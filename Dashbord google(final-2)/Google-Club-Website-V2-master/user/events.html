@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Google Club | Events </title>
+        <link rel="stylesheet" href="../master.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+        <link rel="shortcut icon" type="image/jpg" href="../icons/logo.ico" />
+    </head>
+<body>
+    <nav class="navbar fixed-top nav-user ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="home.html">
+            <a class="navbar-brand" href="home.html" style="margin-top:2px;"><img src="../images/isetlogo.png" alt="" class="logo"></a>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" style="background-color: var(--mainBlue);padding:10px;width:120px;color: white;font-weight: 600;">
+            <span class=" " >
+                Profile
+            </span>
+          </button>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">    
+            <div class="offcanvas-header">
+                <div class="d-flex justify-content-between ">
+                    <div>
+                        <h4>Riahi Yassin</h4>
+                        <h5>Member</h5>
+                    </div>
+                    <img src="ressource/user.jpg" alt="" class="user-profile">
+                    
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 mb-5 align">
+                <li class="nav-item d-flex align-items-center  mb-3">
+                    <img src="ressource/icons/dashboard.png" alt="" class="icon-user">
+                  <a class="nav-link " aria-current="page" href="home.html" >Dashboard</a>
+                </li>
+                <li class="nav-item d-flex align-items-center mb-3">
+                    <img src="ressource/icons/to-do-list.png" alt="" class="icon-user">
+                    <a class="nav-link active" aria-current="page" href="to-do-list.html">To do list</a>
+                  </li>
+                  <li class="nav-item d-flex align-items-center mb-3">
+                    <img src="ressource/icons/leaderboard.png" alt="" class="icon-user">
+                    <a class="nav-link active" aria-current="page" href="leaderboard.html">Leaderboard</a>
+                  </li>
+                  <li class="nav-item d-flex align-items-center  mb-3 active-page">
+                    <img src="ressource/icons/event-nav.png" alt="" class="icon-user">
+                  <a class="nav-link " aria-current="page" href="events.html" >Events</a>
+                </li>
+                  <li class="nav-item d-flex align-items-center mb-3">
+                    <img src="ressource/icons/settings.png" alt="" class="icon-user">
+                    <a class="nav-link active" aria-current="page" href="settings.html">Settings</a>
+                  </li>
+                
+              </ul>
+              <div class="d-flex justify-content-center mt-5">
+                <button class="btn btn-danger" type="submit" style="height:50px;width: 120px;align-self: flex-end;">Log Out</button>
+            </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="d-flex justify-content-center" style="margin-top:120px;margin-bottom: -60px;">
+        <h1>Main Event</h1>
+      </div>
+      <div class="d-flex justify-content-center container-events" style="margin-top: 120px;padding: 40px;position:relative  ;">
+        <img src="ressource/google-birth.png" alt="" class="" style="width: 80%;border-radius:12px;">
+        <div style="position: absolute;top:68%;right: 29.8%;">
+            <button class="read-more">Read More</button>
+        </div>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#161616" fill-opacity="1" d="M0,96L80,112C160,128,320,160,480,160C640,160,800,128,960,117.3C1120,107,1280,117,1360,122.7L1440,128L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path></svg>
+      
+      <div class="d-flex justify-content-center" style="margin-bottom: 50px;margin-top: 0px;">
+        <h1>Events</h1>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin-top: -100px;"><path fill="#161616" fill-opacity="1" d="M0,160L80,165.3C160,171,320,181,480,197.3C640,213,800,235,960,234.7C1120,235,1280,213,1360,202.7L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg>
+      <span class="event-tagger"></span>
+      <div class="container-events">
+        <div class="d-flex justify-content-center">
+            <h1 style="color:white">New</h1>
+        </div>
+        <div class="d-flex justify-content-center m">
+            <div class="event d-flex justify-content-center flex-column">
+                <img src="ressource/back-event.png" alt="">
+                <h1 >Google Test Event</h1>
+                <p>laurem lauremlaurem lauremlaurem lauremlaurem lauremlaurem lauremlaurem laurem</p>
+                <div class="d-flex justify-content-around">
+                    <h4>Date : 14 January</h4>
+                    <h4>Place : Unknown</h4>
+                </div>
+            </div>
+            <div class="event d-flex justify-content-around flex-column">
+                <img src="ressource/back-event.png" alt="">
+                <h1 >Google Test Event</h1>
+                <p>laurem lauremlaurem lauremlaurem lauremlaurem lauremlaurem lauremlaurem laurem</p>
+                <div class="d-flex justify-content-around">
+                    <h4>Date : 14 January</h4>
+                    <h4>Place : Unknown</h4>
+                </div>
+            </div>
+            <div class="event d-flex justify-content-center flex-column">
+                <img src="ressource/back-event.png" alt="">
+                <h1 >Google Test Event</h1>
+                <p>laurem lauremlaurem lauremlaurem lauremlaurem lauremlaurem lauremlaurem laurem</p>
+                <div class="d-flex justify-content-around">
+                    <h4>Date : 14 January</h4>
+                    <h4>Place : Unknown</h4>
+                </div>
+            </div>
+            
+        </div>
+        <div class="d-flex justify-content-center">
+            <h1 style="color:white;margin-top: 80px;margin-left: -20px;">Expired</h1>
+        </div>
+        <div class="d-flex justify-content-center m">
+            <div class="event d-flex justify-content-center flex-column expired-event">
+                <img src="ressource/back-event.png" alt="">
+                <h2 style="align-self: center;padding: 5px;">Expired</h2>
+                <h1 >Google Test Event</h1>
+                <p>laurem lauremlaurem lauremlaurem lauremlaurem lauremlaurem lauremlaurem laurem</p>
+                <div class="d-flex justify-content-around">
+                    <h4>Date : 14 January</h4>
+                    <h4>Place : Unknown</h4>
+                </div>
+            </div>
+            <div class="event d-flex justify-content-around flex-column expired-event">
+                <img src="ressource/back-event.png" alt="">
+                <h2 style="align-self: center;padding: 5px;">Expired</h2>
+                <h1 >Google Test Event</h1>
+                <p>laurem lauremlaurem lauremlaurem lauremlaurem lauremlaurem lauremlaurem laurem</p>
+                <div class="d-flex justify-content-around">
+                    <h4>Date : 14 January</h4>
+                    <h4>Place : Unknown</h4>
+                </div>
+            </div>
+            <div class="event d-flex justify-content-center flex-column expired-event">
+                <img src="ressource/back-event.png" alt="">
+                <h2 style="align-self: center;padding: 5px;">Expired</h2>
+                <h1 >Google Test Event</h1>
+                <p>laurem lauremlaurem lauremlaurem lauremlaurem lauremlaurem lauremlaurem laurem</p>
+                <div class="d-flex justify-content-around">
+                    <h4>Date : 14 January</h4>
+                    <h4>Place : Unknown</h4>
+                </div>
+            </div>
+            
+        </div>
+      </div>
+      <footer class="footer-user">
+        <div class=" col-sm-12">
+            <div class="d-flex justify-content-around   ">
+                <a href=""><img src="../icons/facebook.png" alt="" class="icon"></a>
+                <a href=""><img src="../icons/linkedin.png" alt="" class="icon"></a>
+                <a href=""><img src="../icons/twitter.png" alt="" class="icon"></a>
+            </div>
+        </div>
+        <div class="d-flex col-12 justify-content-center">
+            <h2><a href="">Report a problem</a></h2>
+        </div>
+        <div class="d-flex justify-content-center p-4">
+            <p>Made with love by <a href="https://www.facebook.com/8I93f/" class="yassin" target="_blank">Riahi Yassin</a></p>
+        </div>
+    </footer>
+    
+</body>
+</html>
